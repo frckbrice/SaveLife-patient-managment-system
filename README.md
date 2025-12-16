@@ -166,22 +166,37 @@ java-spring-microservices/
 
 ## Getting Started
 
-### 1. Clone the Repository
+### Quick Start with Docker Compose
+
+The easiest way to get started is using Docker Compose:
 
 ```bash
+# 1. Clone the repository
 git clone git@github.com:frckbrice/SaveLife-patient-managment-system.git
 cd SaveLife-patient-managment-system
-```
 
-### 2. Start Infrastructure Services
-
-Start PostgreSQL and Kafka using Docker Compose:
-
-```bash
+# 2. Start all services
 docker-compose up -d
+
+# 3. Verify services are running
+docker-compose ps
+
+# 4. Check API Gateway health
+curl http://localhost:4004/actuator/health
 ```
 
-### 3. Build the Project
+All services will be available:
+- API Gateway: http://localhost:4004
+- Patient Service: http://localhost:4000
+- Auth Service: http://localhost:4005
+- Billing Service: http://localhost:4001
+- Analytics Service: http://localhost:4002
+
+### Manual Setup
+
+For detailed manual setup instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
+### Build the Project
 
 Build all microservices:
 
@@ -189,47 +204,28 @@ Build all microservices:
 mvn clean install
 ```
 
-### 4. Run Services
-
-Start each service in the following order:
-
-**Terminal 1 - Authentication Service**:
-```bash
-cd auth-service
-mvn spring-boot:run
-```
-
-**Terminal 2 - Patient Service**:
-```bash
-cd patient-service
-mvn spring-boot:run
-```
-
-**Terminal 3 - Billing Service**:
-```bash
-cd billing-service
-mvn spring-boot:run
-```
-
-**Terminal 4 - Analytics Service**:
-```bash
-cd analytics-service
-mvn spring-boot:run
-```
-
-**Terminal 5 - API Gateway**:
-```bash
-cd api-gateway
-mvn spring-boot:run
-```
-
-### 5. Access Services
+### Access Services
 
 - **API Gateway**: http://localhost:4004
 - **Patient Service API Docs**: http://localhost:4004/api-docs/patients
 - **Auth Service API Docs**: http://localhost:4004/api-docs/auth
 - **Patient Service Direct**: http://localhost:4000
 - **Auth Service Direct**: http://localhost:4005
+
+### Health Checks
+
+All services expose health check endpoints:
+
+```bash
+# API Gateway
+curl http://localhost:4004/actuator/health
+
+# Patient Service
+curl http://localhost:4000/actuator/health
+
+# Auth Service
+curl http://localhost:4005/actuator/health
+```
 
 ## API Documentation
 
@@ -279,19 +275,30 @@ Content-Type: application/json
 }
 ```
 
-## Docker Deployment
+## Deployment
 
-Each service includes a Dockerfile for containerization:
+### Docker Compose (Recommended for Development)
 
 ```bash
-# Build Docker image
-docker build -t patient-service ./patient-service
-
-# Run container
-docker run -p 4000:4000 patient-service
+docker-compose up -d
 ```
 
-## Infrastructure Deployment
+### Kubernetes Deployment
+
+Deploy to Kubernetes using the provided manifests:
+
+```bash
+kubectl apply -f k8s/namespace.yaml
+kubectl apply -f k8s/postgresql-configmap.yaml
+kubectl apply -f k8s/auth-db-deployment.yaml
+kubectl apply -f k8s/patient-db-deployment.yaml
+kubectl apply -f k8s/auth-service-deployment.yaml
+kubectl apply -f k8s/patient-service-deployment.yaml
+```
+
+For detailed deployment instructions, see [DEPLOYMENT.md](DEPLOYMENT.md)
+
+### Infrastructure Deployment
 
 Deploy infrastructure using AWS CDK and LocalStack:
 
@@ -364,15 +371,28 @@ The project is organized into feature branches for each microservice:
 - Docker containerization for scalability
 - Stateless service design for horizontal scaling
 
+## Production Features
+
+The project includes production-ready features:
+
+- **Health Checks**: Spring Boot Actuator with liveness and readiness probes
+- **Monitoring**: Prometheus metrics exposed on all services
+- **Logging**: Structured logging with Logback and file rotation
+- **Configuration**: Environment-based configuration with YAML
+- **CI/CD**: GitHub Actions pipeline for automated testing and building
+- **Containerization**: Docker support with Docker Compose for local development
+- **Kubernetes**: Complete K8s manifests for production deployment
+- **Documentation**: Comprehensive deployment and API documentation
+
 ## Future Enhancements
 
 - Service mesh implementation (Istio/Linkerd)
 - Distributed tracing (Jaeger/Zipkin)
 - Centralized logging (ELK Stack)
-- Monitoring and alerting (Prometheus/Grafana)
-- CI/CD pipeline automation
-- Kubernetes deployment manifests
+- Advanced monitoring dashboards (Grafana)
 - Multi-region deployment support
+- API rate limiting
+- Circuit breakers (Resilience4j)
 
 ## Contributing
 

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgresql-config
+  namespace: savelife
+data:
+  POSTGRES_DB_AUTH: "authdb"
+  POSTGRES_USER_AUTH: "authuser"
+  POSTGRES_PASSWORD_AUTH: "authpass"
+  POSTGRES_DB_PATIENT: "patientdb"
+  POSTGRES_USER_PATIENT: "patientuser"
+  POSTGRES_PASSWORD_PATIENT: "patientpass"
+

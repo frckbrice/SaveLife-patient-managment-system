@@ -63,6 +63,7 @@ Thumbs.db
 
 # Application-specific
 .env
+.env.local
 *.key
 *.pem
 *.p12
@@ -73,14 +74,28 @@ Thumbs.db
 
 # Docker
 /docker/
-/docker-compose.yml
-/docker-compose.override.yml
+docker-compose.override.yml
 
 # Kubernetes
-/k8s/
+/k8s/secrets/
 
 # LocalStack
 .localstack/
 
 # AWS credentials
 .aws/
+
+# Checkstyle
+checkstyle-result.xml
+checkstyle-cachefile
+
+# SpotBugs
+spotbugsXml.xml
+spotbugsXml.html
+
+# Coverage reports
+coverage/
+*.exec
+.nyc_output
+
+docs/
