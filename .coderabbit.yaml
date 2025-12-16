@@ -1,0 +1,46 @@
+language_settings:
+  java:
+    code_review:
+      enabled: true
+      path_filters:
+        - "**/*.java"
+      review_simple_changes: true
+      review_entire_file_on_change: false
+    chat:
+      enabled: true
+      auto_review:
+        enabled: true
+        base_branches:
+          - main
+          - develop
+    summarization:
+      enabled: true
+      group_by: "files"
+      extra_instructions: |
+        Focus on:
+        - Code quality and best practices
+        - Security vulnerabilities
+        - Performance optimizations
+        - Test coverage
+        - Spring Boot best practices
+        - Microservices patterns
+
+path_filters:
+  - "**/*.java"
+  - "**/*.xml"
+  - "**/*.yml"
+  - "**/*.yaml"
+  - "**/*.properties"
+  - "**/pom.xml"
+  - "**/Dockerfile"
+  - "**/*.proto"
+
+reviews:
+  high_level_summary: true
+  review_status: true
+  path_filters:
+    - "**/*.java"
+    - "**/*.xml"
+    - "**/*.yml"
+    - "**/pom.xml"
+
