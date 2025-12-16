@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pm.patientservice.dto.PatientRequestDTO;
 import com.pm.patientservice.dto.PatientResponseDTO;
 import com.pm.patientservice.service.PatientService;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -54,7 +53,7 @@ class PatientControllerTest {
     patientRequestDTO.setAddress("123 Main St");
 
     patientResponseDTO = new PatientResponseDTO();
-    patientResponseDTO.setId(patientId);
+    patientResponseDTO.setId(patientId.toString());
     patientResponseDTO.setName("John Doe");
     patientResponseDTO.setEmail("john.doe@example.com");
     patientResponseDTO.setDateOfBirth("1990-01-15");

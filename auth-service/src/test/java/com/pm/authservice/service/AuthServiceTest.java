@@ -2,10 +2,10 @@ package com.pm.authservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -113,7 +113,7 @@ class AuthServiceTest {
   @Test
   @DisplayName("Should validate valid token")
   void testValidateValidToken() {
-    when(jwtUtil.validateToken(validToken)).thenReturn(null);
+    doNothing().when(jwtUtil).validateToken(validToken);
 
     boolean result = authService.validateToken(validToken);
 
@@ -125,7 +125,7 @@ class AuthServiceTest {
   @DisplayName("Should return false for invalid token")
   void testValidateInvalidToken() {
     String invalidToken = "invalid.token";
-    when(jwtUtil.validateToken(invalidToken)).thenThrow(new JwtException("Invalid token"));
+    doThrow(new JwtException("Invalid token")).when(jwtUtil).validateToken(invalidToken);
 
     boolean result = authService.validateToken(invalidToken);
 

@@ -2,7 +2,6 @@ package com.pm.billingservice.grpc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 import billing.BillingRequest;
@@ -33,8 +32,8 @@ class BillingGrpcServiceTest {
   void setUp() {
     billingRequest = BillingRequest.newBuilder()
         .setPatientId("12345")
-        .setPatientName("John Doe")
-        .setPatientEmail("john.doe@example.com")
+        .setName("John Doe")
+        .setEmail("john.doe@example.com")
         .build();
   }
 
