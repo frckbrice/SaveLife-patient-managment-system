@@ -81,6 +81,19 @@ jobs:
           SPRING_DATASOURCE_PASSWORD: testpass
           SPRING_KAFKA_BOOTSTRAP_SERVERS: localhost:9092
 
+      - name: Generate test coverage report
+        working-directory: ./${{ matrix.service }}
+        run: mvn jacoco:report
+        continue-on-error: true
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./${{ matrix.service }}/target/site/jacoco/jacoco.xml
+          flags: ${{ matrix.service }}
+          name: ${{ matrix.service }}-coverage
+        continue-on-error: true
+
       - name: Package ${{ matrix.service }}
         working-directory: ./${{ matrix.service }}
         run: mvn package -DskipTests

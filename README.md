@@ -309,19 +309,34 @@ cd infrastructure
 
 ## Testing
 
-Run integration tests:
+### Run All Tests
+
+```bash
+mvn test
+```
+
+### Run Tests with Coverage
+
+```bash
+mvn test jacoco:report
+```
+
+Coverage reports are available in `target/site/jacoco/index.html`
+
+### Run Integration Tests
 
 ```bash
 cd integration-tests
 mvn test
 ```
 
-Run tests for a specific service:
+### Test Coverage
 
-```bash
-cd <service-name>
-mvn test
-```
+- Minimum coverage requirement: 70%
+- JaCoCo enforces coverage thresholds
+- Coverage reports generated automatically in CI/CD
+
+For detailed testing information, see [TESTING.md](TESTING.md)
 
 ## Branch Structure
 
